@@ -1,7 +1,7 @@
 export class Motor {
     alert: boolean;
     active: boolean;
-    requestedSpeed: number;
+    speed: number;
 
     /**
      * For this motor the speed can be set between -10 to 10 feed per second.
@@ -9,7 +9,11 @@ export class Motor {
      * @param speed
      */
     setSpeed(speed: number){
-        this.requestedSpeed = speed;
+        this.speed = speed;
+    }
+
+    getCurrentSpeed() {
+        return this.speed;
     }
 
     stop() {
