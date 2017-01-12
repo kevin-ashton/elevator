@@ -1,5 +1,10 @@
 export interface IElevatorEvent {
-    event: string,
+    type: string,
     elevatorId: number,
     payload?: any
+}
+
+export interface IFloorEvent {
+    type: string,
+    floorNumber: number
 }

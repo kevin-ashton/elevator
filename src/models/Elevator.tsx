@@ -2,21 +2,14 @@ import { IElevatorEvent } from 'Event';
 import { Subject } from 'rxjs';
 import { Motor } from './Motor';
 
-export interface IElevatorConfig {
-    restingFloor: number
-}
-
 export class Elevator {
-    alert: boolean;
     id: number;
     motor: Motor;
     private currentFloor: number;
-    restingFloor: number;
-    messages: Subject<IElevatorEvent>;
+    floorMessages: Subject<IElevatorEvent>;
 
-    constructor(config: IElevatorConfig ){
-        this.restingFloor = config.restingFloor;
-        this.messages = new Subject();
+    constructor(){
+        this.floorMessages = new Subject();
         this.motor = new Motor();
     }
 
@@ -30,31 +23,33 @@ export class Elevator {
 
     static OPEN_DOOR = 'Elevator Event: Open Door';
     openDoor() {
-        this.messages.next({
-            event: Elevator.OPEN_DOOR,
+        this.floorMessages.next({
+            type: Elevator.OPEN_DOOR,
             elevatorId: this.id
         });
     }
 
     static CLOSE_DOOR = 'Elevator Event: Close Door';
     closeDoor() {
-        this.messages.next({
-            event: Elevator.CLOSE_DOOR,
+        this.floorMessages.next({
+            type: Elevator.CLOSE_DOOR,
             elevatorId: this.id
         });
     }
 
     static REQUEST_FLOOR = 'Elevator Event: Request Floor';
     requestFloor(floor: number) {
-        this.messages.next({
-            event: Elevator.REQUEST_FLOOR,
+        this.floorMessages.next({
+            type: Elevator.REQUEST_FLOOR,
             elevatorId: this.id,
             payload: floor
         });
     }
 
     moveToFloor(floor: number) {
-
+        // Calculate current position
+        // Adjust motor
+        //this.motor.setSpeed(10)
     }
 
     emergencyStop() {}
