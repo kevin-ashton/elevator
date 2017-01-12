@@ -5,12 +5,15 @@ import { Motor } from './Motor';
 export class Elevator {
     id: number;
     motor: Motor;
+    mode: 'OPERATIONAL' | 'SERVICE';
+    tripsSinceService: number;
     private currentFloor: number;
-    floorMessages: Subject<IElevatorEvent>;
+    elevatorMessages: Subject<IElevatorEvent>;
 
     constructor(){
-        this.floorMessages = new Subject();
+        this.elevatorMessages = new Subject();
         this.motor = new Motor();
+        this.mode = 'OPERATIONAL';
     }
 
     getCurrentFloor() {
@@ -23,7 +26,7 @@ export class Elevator {
 
     static OPEN_DOOR = 'Elevator Event: Open Door';
     openDoor() {
-        this.floorMessages.next({
+        this.elevatorMessages.next({
             type: Elevator.OPEN_DOOR,
             elevatorId: this.id
         });
@@ -31,7 +34,7 @@ export class Elevator {
 
     static CLOSE_DOOR = 'Elevator Event: Close Door';
     closeDoor() {
-        this.floorMessages.next({
+        this.elevatorMessages.next({
             type: Elevator.CLOSE_DOOR,
             elevatorId: this.id
         });
@@ -39,7 +42,7 @@ export class Elevator {
 
     static REQUEST_FLOOR = 'Elevator Event: Request Floor';
     requestFloor(floor: number) {
-        this.floorMessages.next({
+        this.elevatorMessages.next({
             type: Elevator.REQUEST_FLOOR,
             elevatorId: this.id,
             payload: floor
@@ -50,6 +53,10 @@ export class Elevator {
         // Calculate current position
         // Adjust motor
         //this.motor.setSpeed(10)
+    }
+
+    serviceElevator() {
+        this.tripsSinceService = 0;
     }
 
     emergencyStop() {}
