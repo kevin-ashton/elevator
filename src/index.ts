@@ -1,9 +1,8 @@
-import * as React from "react";
-import * as ReactDOM from "react-dom";
+import { Building, IBuildingConfig } from './models/Building';
 
-import { Hello } from "./components/Hello";
+let cfg: IBuildingConfig = {
+    floors: 10,
+    elevatorNum: 3
+};
 
-ReactDOM.render(
-    <Hello compiler="TypeScript" framework="React" />,
-    document.getElementById("example")
-);
+let shinyNewBuilding = Building(cfg);

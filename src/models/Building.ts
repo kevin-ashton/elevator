@@ -17,8 +17,9 @@ export class Building{
             this.floors.push(new Floor(i));
         }
 
+        let serviceEveryNTrips = 100;
         for(let i = 0; i < config.elevatorNum; i++) {
-            this.elevators.push(new Elevator())
+            this.elevators.push(new Elevator(i, config.floors, serviceEveryNTrips))
         }
 
         let cfg: IControllerConfig = {

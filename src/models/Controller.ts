@@ -46,7 +46,12 @@ export class Controller {
         // Take into account if elevator is in service mode
         // Take into account direction of elevator
         let stubElevatorIndex = 1;
-        this.elevators[stubElevatorIndex].requestFloor(floorNum);
+        this.elevators[stubElevatorIndex].moveToFloor(floorNum);
+        if(direction === Direction.Down){
+            this.floors[floorNum - 1 ].resetDownButton();
+        } else {
+            this.floors[floorNum - 1 ].resetUpButton();
+        }
     }
 
     private subscribeToElevators() {
