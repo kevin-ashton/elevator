@@ -1,4 +1,5 @@
-import { IElevatorConfig } from './elevator';
+import { Controller } from './Controller'
+import { IElevatorConfig } from './Elevator';
 
 export interface IBuildingConfig {
     floors: number;
@@ -6,5 +7,10 @@ export interface IBuildingConfig {
 }
 
 export class Building{
-    constructor(specs: IBuildingConfig){}
+    controller: Controller;
+
+    constructor(specs: IBuildingConfig){
+        // Build the elevators
+        // Build controller
+    }
 }

@@ -1,34 +1,42 @@
+import {EventEmitter} from 'events';
+
 export interface IElevatorConfig {
     restingFloor: number
 }
 
 export class Elevator {
-    private restingFloor: number;
-    constructor(config: IElevatorConfig, ){
+    alert: boolean;
+    currentFloor: number;
+    restingFloor: number;
+    messages: EventEmitter;
+
+    constructor(config: IElevatorConfig ){
         this.restingFloor = config.restingFloor;
+        this.messages = new EventEmitter();
     }
 
-    connectController() {
-
+    static OPEN_DOOR = 'Elevator Event: Open Door';
+    openDoor() {
+        this.messages.emit({event: Elevator.OPEN_DOOR});
     }
 
-    emergencyStop() {
-
+    static CLOSE_DOOR = 'Elevator Event: Close Door';
+    closeDoor() {
+        this.messages.emit(Elevator.CLOSE_DOOR);
     }
 
-    emergencyCall() {
-
-    }
-
+    static
     requestFloor(floor: number) {
 
     }
 
-    requestDoorOpen() {
+    emergencyStop() {}
 
-    }
+    emergencyCall() {}
 
-    requestDoorClose() {
 
-    }
+
+    requestDoorOpen() {}
+
+    requestDoorClose() {}
 }
